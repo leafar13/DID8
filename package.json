@@ -1,0 +1,30 @@
+{
+  "name": "cordova-plugin-did-authenticator-sdk",
+  "version": "6.1.0",
+  "description": "DetectID Authenticator SDK plugin cordova for Android, iOS   platforms",
+  "cordova": {
+    "id": "net.easysol.did.DetectIDCordovaPlugin",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android",
+    "didauthenticator",
+    "did",
+    "easysol",
+    "Easy Solutions",
+    "Android",
+    "iOS",
+    "cordova"
+  ],
+  "author": "Cyxtera Cybersecurity, Inc. d/b/a AppGate",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

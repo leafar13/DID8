@@ -1,0 +1,426 @@
+<!--Disclaimer
+© 2019, Cyxtera Cybersecurity, Inc. d/b/a AppGate.  All rights reserved.  
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: 
+(a) redistributions of source code must retain the above copyright notice, this list of conditions and the disclaimer below, and (b) 
+redistributions in binary form must reproduce the above copyright notice, this list of conditions and the disclaimer below in the documentation
+and/or other materials provided with the distribution. 
+
+THE CODE AND SCRIPTS POSTED ON THIS WEBSITE ARE PROVIDED ON AN “AS IS” BASIS AND YOUR USE OF SUCH CODE AND/OR SCRIPTS IS AT YOUR OWN RISK.  
+APPGATE DISCLAIMS ALL EXPRESS AND IMPLIED WARRANTIES, EITHER IN FACT OR BY OPERATION OF LAW, STATUTORY OR OTHERWISE, INCLUDING, BUT NOT LIMITED TO, 
+ALL WARRANTIES OF MERCHANTABILITY, TITLE, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY, COMPLETENESS, COMPATABILITY OF SOFTWARE OR 
+EQUIPMENT OR ANY RESULTS TO BE ACHIEVED THEREFROM.  APPGATE DOES NOT WARRANT THAT SUCH CODE AND/OR SCRIPTS ARE OR WILL BE ERROR-FREE.  
+IN NO EVENT SHALL APPGATE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, RELIANCE, EXEMPLARY, PUNITIVE OR CONSEQUENTIAL DAMAGES, OR ANY LOSS 
+OF GOODWILL, LOSS OF ANTICIPATED SAVINGS, COST OF PURCHASING REPLACEMENT SERVICES, LOSS OF PROFITS, REVENUE, DATA OR DATA USE, ARISING IN ANY WAY OUT 
+OF THE USE AND/OR REDISTRIBUTION OF SUCH CODE AND/OR SCRIPTS, REGARDLESS OF THE LEGAL THEORY UNDER WHICH SUCH LIABILITY IS ASSERTED AND REGARDLESS 
+OF WHETHER APPGATE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LIABILITY. -->
+
+<?xml version='1.0' encoding='utf-8'?>
+<plugin xmlns:android="http://schemas.android.com/apk/res/android"
+        id="net.easysol.did.DetectIDCordovaPlugin" version="6.1.0"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0">
+
+    <!--required setup-->
+    <name>DetectIDAuthenticator</name>
+    <description>DetectID Authenticator SDK plugin cordova for Android, iOS platforms</description>
+    <license>Apache 2.0</license>
+    <keywords>didauthenticator,did,easysol,Easy Solutions, Android,iOS, cordova</keywords>
+    <author>Easy Solutions, Inc.</author>
+
+    <!--supported versions-->
+    <engines>
+        <engine name="cordova" version=">=7.1.0"/>
+        <engine name="cordova-android" version=">=6.3.0"/>
+        <engine name="cordova-ios" version=">=4.5.1"/>
+    </engines>
+
+    <!--js modules and plugin id-->
+
+    <js-module name="DetectIDCordovaPlugin" src="www/DIDAuthenticatorSDK.js">
+        <clobbers target="DetectIDCordovaPlugin"/>
+    </js-module>
+
+    <!-- <dependency id="cordova-plugin-firebase" url="https://github.com/arnesson/cordova-plugin-firebase/" commit="db3b661fc7fe23694794c9d4e8f9f10c8eb7d649" subdir="/" /> -->
+    <!-- iOS platform-->
+    <platform name="ios">
+        <!-- ios-specific elements -->
+        <config-file parent="/*" target="config.xml">
+            <feature name="DetectIDCordovaPlugin">
+                <param name="ios-package" onload="true" value="DetectIDCordovaPlugin"/>
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <config-file parent="/*" target="config.xml">
+            <feature name="DIDPlugPushApi">
+                <param name="ios-package" onload="true" value="DIDPlugPushApi"/>
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <config-file parent="/*" target="config.xml">
+            <feature name="DIDPlugRegistrationApi">
+                <param name="ios-package" onload="true" value="DIDPlugRegistrationApi"/>
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <config-file parent="/*" target="config.xml">
+            <feature name="DIDPlugAccountsApi">
+                <param name="ios-package" onload="true" value="DIDPlugAccountsApi"/>
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <config-file parent="/*" target="config.xml">
+            <feature name="DIDPlugOtpApi">
+                <param name="ios-package" onload="true" value="DIDPlugOtpApi"/>
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <!-- ios-specific permissions -->
+        <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
+            <string>We are using a camera to QR</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="UIBackgroundModes">
+              <array>
+                <string>remote-notification</string>
+              </array>
+        </config-file>
+        <config-file parent="NSMicrophoneUsageDescription" target="*-Info.plist">
+            <string>We are using a Microphone to Voice</string>
+        </config-file>
+        <config-file parent="NSAppTransportSecurity" target="*-Info.plist">
+            <dict>
+                <key>NSAllowsArbitraryLoads</key><true/>
+            </dict>
+        </config-file>
+        <!-- ios-specific setup -->
+        <config-file parent="CFBundleURLTypes" target="*-Info.plist">
+            <array>
+                <dict>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>did</string>
+                        <string>prefs</string>
+                    </array>
+                    <key>CFBundleTypeRole</key>
+                    <string>Editor</string>
+                    <key>CFBundleURLName</key>
+                    <string>$PACKAGE_NAME</string>
+                </dict>
+            </array>
+        </config-file>
+
+        <!-- ios-specific files -->
+        <header-file src="src/ios/DetectIDCordovaPlugin.h"/>
+        <source-file src="src/ios/DetectIDCordovaPlugin.m"/>
+
+        <!-- ios registrations files -->
+        <header-file src="src/ios/registration/DIDPlugRegistrationApi.h"/>
+        <source-file src="src/ios/registration/DIDPlugRegistrationApi.m"/>
+
+        <!-- ios account files -->
+        <header-file src="src/ios/account/DIDPlugAccountsApi.h"/>
+        <source-file src="src/ios/account/DIDPlugAccountsApi.m"/>
+
+        <!-- ios otp files -->
+        <header-file src="src/ios/otp/DIDPlugOtpApi.h"/>
+        <source-file src="src/ios/otp/DIDPlugOtpApi.m"/>
+
+        <!-- ios push files -->
+        <header-file src="src/ios/push/AppDelegate+notification.h"/>
+        <source-file src="src/ios/push/AppDelegate+notification.m"/>
+        <header-file src="src/ios/push/DIDPlugPushApi.h"/>
+        <source-file src="src/ios/push/DIDPlugPushApi.m"/>
+        <header-file src="src/ios/push/DIDPlugPushTransactionManager.h"/>
+        <source-file src="src/ios/push/DIDPlugPushTransactionManager.m"/>
+        <header-file src="src/ios/push/DIDPlugPushAlertManager.h"/>
+        <source-file src="src/ios/push/DIDPlugPushAlertManager.m"/>
+        <header-file src="src/ios/push/DIDPluginTransactionServerResponseListener.h"/>
+        <source-file src="src/ios/push/DIDPluginTransactionServerResponseListener.m"/>
+        <header-file src="src/ios/push/DIDPluginPushAlertOpenListener.h"/>
+        <source-file src="src/ios/push/DIDPluginPushAlertOpenListener.m"/>
+        <header-file src="src/ios/push/DIDPluginTransactionOpenListener.h"/>
+        <source-file src="src/ios/push/DIDPluginTransactionOpenListener.m"/>
+        <header-file src="src/ios/push/DIDPluginTransactionActionListener.h"/>
+        <source-file src="src/ios/push/DIDPluginTransactionActionListener.m"/>
+
+        <!-- ios helper files -->
+        <header-file src="src/ios/helper/DIDPlugConstantsHelper.h"/>
+        <header-file src="src/ios/helper/DIDPlugHelper.h"/>
+        <source-file src="src/ios/helper/DIDPlugHelper.m"/>
+        <header-file src="src/ios/helper/DIDPlugServerHelper.h"/>
+        <source-file src="src/ios/helper/DIDPlugServerHelper.m"/>
+        <header-file src="src/ios/helper/DIDPlugExceptionsHelper.h"/>
+        <source-file src="src/ios/helper/DIDPlugExceptionsHelper.m"/>
+        <header-file src="src/ios/helper/DIDPlugRegexHelper.h"/>
+        <source-file src="src/ios/helper/DIDPlugRegexHelper.m"/>
+
+        <source-file src="libs/ios/didm_auth_sdk_iOS.framework" target-dir="lib" framework="true" />
+        <source-file src="libs/ios/did_sdk_tokens_ios.framework" target-dir="lib" framework="true" />
+        <source-file src="libs/ios/did_sdk_data_ios.framework" target-dir="lib" framework="true" />
+        <source-file src="libs/iOS/did_sdk_encrypt_iOS.framework" target-dir="lib" framework="true" />
+        <!-- ios-specific frameworks -->
+        <framework custom="true" embed="true" src="libs/ios/didm_auth_sdk_iOS.framework"/>
+        <framework custom="true" embed="true" src="libs/ios/did_sdk_tokens_ios.framework"/>
+        <framework custom="true" embed="true" src="libs/ios/did_sdk_data_ios.framework"/>
+        <framework custom="true" embed="true" src="libs/iOS/did_sdk_encrypt_iOS.framework"/>
+
+        <framework src="Security.framework"/>
+        <framework src="SystemConfiguration.framework"/>
+        <framework src="LocalAuthentication.framework"/>
+        <framework src="Security.framework"/>
+        <framework src="AVFoundation.framework"/>
+        <framework src="CoreVideo.framework"/>
+        <framework src="CoreMedia.framework"/>
+        <framework src="libiconv.dylib"/>
+        <framework src="QuartzCore.framework"/>
+        <framework src="UIKit.framework"/>
+        <framework src="Foundation.framework"/>
+        <framework src="CoreGraphics.framework"/>
+    </platform>
+
+    <!-- Android platform-->
+    <platform name="android">
+
+       <custom-preference name="android-manifest/application/@android:name" value="net.easysol.did.DetectIDCordovaPlugin.DIDApplication" />
+
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="DetectIDCordovaPlugin">
+                <param name="android-package"
+                       value="net.easysol.did.DetectIDCordovaPlugin.DetectIDCordovaPlugin"/>
+                
+            </feature>
+            <feature name="DIDPlugPushApi">
+                <param name="android-package"
+                       value="net.easysol.did.DetectIDCordovaPlugin.push.DIDPlugPushApi"/>
+                
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="DIDPlugRegistrationApi">
+                <param name="android-package"
+                       value="net.easysol.did.DetectIDCordovaPlugin.registration.DIDPlugRegistrationApi"/>
+                
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="DIDPlugAccountsApi">
+                <param name="android-package"
+                       value="net.easysol.did.DetectIDCordovaPlugin.accounts.DIDPlugAccountsApi"/>
+                
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="DIDPlugOtpApi">
+                <param name="android-package"
+                       value="net.easysol.did.DetectIDCordovaPlugin.otp.DIDPlugOtpApi"/>
+                
+            </feature>
+        </config-file>
+        <!-- Android Manifest  -->
+        <config-file parent="/manifest" target="AndroidManifest.xml">
+
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+            <uses-feature android:name="android.hardware.telephony" android:required="false"/>
+            <uses-feature android:name="android.hardware.wifi" android:required="false"/>
+
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
+            <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
+            <uses-permission android:name="$PACKAGE_NAME.permission.C2D_MESSAGE"
+                             android:protectionLevel="signature"/>
+            <uses-permission android:name="$PACKAGE_NAME.C2D_MESSAGE"/>
+
+            <permission android:name="$PACKAGE_NAME.permission.C2D_MESSAGE"
+                        android:protectionLevel="signature"/>
+
+            <uses-permission android:name="android.permission.CAMERA"/>
+            <uses-feature android:name="android.hardware.camera2.full"/>
+            <uses-feature android:name="android.hardware.camera" android:required="false"/>
+            <uses-feature android:name="android.hardware.camera.autofocus"
+                          android:required="false"/>
+
+            <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+            <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+            <uses-permission android:name="android.permission.CAMERA"/>
+
+            <!-- Badge permision -->
+            <!-- Samsung -->
+            <!-- for android-->
+            <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+            <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS"/>
+            <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+            <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"/>
+
+
+            <!--for Samsung-->
+            <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
+            <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
+
+            <!--for htc-->
+            <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
+            <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
+
+            <!--for sony-->
+            <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
+            <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"/>
+
+            <!--for apex-->
+            <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
+
+            <!--for solid-->
+            <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE"/>
+
+            <!--for huawei-->
+            <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+            <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
+            <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
+            <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+        </config-file>
+
+        <!-- Manifest file -->
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+
+            <!-- Registration -->
+            <activity android:name="net.easysol.did.common.registration.DeviceRegistrationActivity"
+                      android:configChanges="orientation|keyboardHidden"
+                      android:theme="@android:style/Theme.Dialog"/>
+
+            <!-- License Agreement -->
+            <activity
+                    android:name="net.easysol.did.common.registration.agreement.AgreementBroadcast"
+                    android:configChanges="orientation|keyboardHidden">
+                <intent-filter>
+                    <data android:scheme="did"/>
+
+                    <action android:name="android.intent.action.VIEW"/>
+
+                    <category android:name="android.intent.category.BROWSABLE"/>
+                    <category android:name="android.intent.category.DEFAULT"/>
+                </intent-filter>
+            </activity>
+
+            <activity
+                    android:name="net.easysol.did.common.registration.agreement.AgreementActivity"/>
+
+            <activity
+                    android:name="net.easysol.did.common.registration.qr.QRCodeDeviceRegistrationActivity"
+                    android:screenOrientation="portrait"/>
+
+            <!-- QR Authentication-->
+            <activity android:name="net.easysol.did.qr_auth.transaction.QRCodeTransactionActivity"
+                      android:theme="@android:style/Theme.Dialog"/>
+            <activity android:name="net.easysol.did.qr_auth.transaction.QRCodeScanActivity"
+                      android:screenOrientation="portrait"/>
+
+            <!-- Push Authentication -->
+            <activity android:name="net.easysol.did.push_auth.transaction.PushTransactionActivity"
+                      android:exported="true" android:theme="@android:style/Theme.Dialog"/>
+            <activity android:name="net.easysol.did.push_auth.alert.PushAlertActivity"
+                      android:exported="true" android:theme="@android:style/Theme.Dialog"/>
+
+            <!-- Push services -->
+            <service android:name="net.easysol.did.firebase_service.InstanceIDListenerService">
+                <intent-filter>
+                    <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                </intent-filter>
+            </service>
+            <service android:name="net.easysol.did.firebase_service.FirebaseGCMReceiverService">
+                <intent-filter>
+                    <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                </intent-filter>
+            </service>
+            <!-- Push quick actions broadcast-->
+            <receiver
+                    android:name="net.easysol.did.push_auth.transaction.broadcast.ConfirmPushTransactionBroadcast"/>
+            <receiver
+                    android:name="net.easysol.did.push_auth.transaction.broadcast.DeclinePushTransactionBroadcast"/>
+
+            <!-- Voice Authentication -->
+            <activity
+                    android:name="net.easysol.did.voice_auth.registration.VoiceRegistrationActivity"
+                    android:configChanges="orientation|keyboardHidden" android:exported="true"
+                    android:theme="@android:style/Theme.Dialog"/>
+            <activity android:name="net.easysol.did.voice_auth.transaction.VoiceTransactionActivity"
+                      android:configChanges="orientation|keyboardHidden" android:exported="true"
+                      android:theme="@android:style/Theme.Dialog"/>
+
+            <!-- Face Authentication-->
+            <activity android:name="net.easysol.did.face_auth.registration.FaceRegistrationActivity"
+                      android:configChanges="orientation|keyboardHidden" android:exported="true"
+                      android:screenOrientation="portrait" android:theme="@android:style/Theme.Dialog"/>
+            <activity
+                    android:name="net.easysol.did.face_auth.transaction.FaceAuthenticationActivity"
+                    android:configChanges="orientation|keyboardHidden" android:exported="true"
+                    android:screenOrientation="portrait" android:theme="@android:style/Theme.Dialog"/>
+
+        </config-file>
+
+        <!-- DID Plugin API -->
+        <source-file src="src/android/proguard-rules.pro"
+                     target-dir="../../"/>
+        <source-file src="src/android/DIDServerURL.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin"/>
+        <source-file src="src/android/DetectIDCordovaPlugin.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin"/>
+
+        <source-file src="src/android/registration/DIDPlugRegistrationManager.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/registration"/>
+        <source-file src="src/android/registration/DIDPlugRegistrationApi.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/registration"/>
+
+        <source-file src="src/android/accounts/DIDPlugAccountsManager.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/accounts"/>
+        <source-file src="src/android/accounts/DIDPlugAccountsApi.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/accounts"/>
+
+        <source-file src="src/android/otp/DIDPlugOtpManager.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/otp"/>
+        <source-file src="src/android/otp/DIDPlugOtpApi.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/otp"/>
+
+        <!--DID Push API-->             
+        <!-- <source-file src="src/android/push/DIDPlugPushApi.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/push"/>
+        <source-file src="src/android/push/DIDPlugPushTransactionManager.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/push"/>
+        <source-file src="src/android/push/DIDPlugPushAlertManager.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/push"/> -->
+        <!-- Listeners -->
+        <source-file src="src/android/listeners/DIDPluginPushAlertOpenListener.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/listeners"/>
+        <source-file src="src/android/listeners/DIDPluginPushAlertReceiveListener.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/listeners"/>
+        <source-file src="src/android/listeners/DIDPluginRegistrationServerResponseListener.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/listeners"/>
+
+
+        <source-file src="src/android/listeners/DIDPluginTransactionOpenListener.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/listeners"/>
+        <source-file src="src/android/listeners/DIDPluginTransactionReceiveListener.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/listeners"/>
+        <source-file src="src/android/listeners/DIDPluginTransactionServerResponseListener.java"
+                     target-dir="src/net/easysol/did/DetectIDCordovaPlugin/listeners"/>
+
+
+        <framework custom="true" src="src/android/build-extras.gradle" type="gradleReference"/>
+
+        <lib-file src="libs/android/did-data-8.1.0.aar"/>
+        <lib-file src="libs/android/didm_authenticator_sdk_v8.1.0.aar"/>
+        <lib-file src="libs/android/did-tokens-8.1.0.aar"/>
+        <lib-file src="libs/android/did-encryptor-8.1.0.aar"/>
+        <!--<lib-file src="libs/android/mobile-commons-1.0.0.aar"/>-->
+        <lib-file src="libs/android/shortcut-1.0.0.aar"/>
+
+    </platform>
+</plugin>
