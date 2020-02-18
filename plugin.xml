@@ -158,10 +158,7 @@ OF WHETHER APPGATE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LIABILITY. -->
         <header-file src="src/ios/helper/DIDPlugRegexHelper.h"/>
         <source-file src="src/ios/helper/DIDPlugRegexHelper.m"/>
 
-        <source-file src="libs/ios/didm_auth_sdk_iOS.framework" target-dir="lib" framework="true" />
-        <source-file src="libs/ios/did_sdk_tokens_ios.framework" target-dir="lib" framework="true" />
-        <source-file src="libs/ios/did_sdk_data_ios.framework" target-dir="lib" framework="true" />
-        <source-file src="libs/iOS/did_sdk_encrypt_iOS.framework" target-dir="lib" framework="true" />
+       
         <!-- ios-specific frameworks -->
         <framework custom="true" embed="true" src="libs/ios/didm_auth_sdk_iOS.framework"/>
         <framework custom="true" embed="true" src="libs/ios/did_sdk_tokens_ios.framework"/>
