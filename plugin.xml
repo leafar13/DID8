@@ -17,7 +17,7 @@ OF WHETHER APPGATE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LIABILITY. -->
 
 <?xml version='1.0' encoding='utf-8'?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android"
-        id="net.easysol.did.DetectIDCordovaPlugin" version="6.1.0"
+        id="cordova-plugin-detectid" version="6.1.0"
         xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
     <!--required setup-->
