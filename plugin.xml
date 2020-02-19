@@ -393,7 +393,7 @@ OF WHETHER APPGATE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LIABILITY. -->
                      target-dir="src/net/easysol/did/DetectIDCordovaPlugin/otp"/>
 
         <source-file src="src/android/xml/provider_paths.xml"
-                     target-dir="../res/xml/provider_paths.xml"/>
+                     target-dir="../res/xml"/>
 
         <!--DID Push API-->             
         <!-- <source-file src="src/android/push/DIDPlugPushApi.java"
