@@ -80,4 +80,10 @@ android {
     }
 }
 
+// PLUGIN GRADLE EXTENSIONS START
+apply from: "../cordova-plugin-mfp/android-build-extras.gradle"
+apply from: "../net.easysol.did.DetectIDCordovaPlugin/android-build-extras.gradle"
+// PLUGIN GRADLE EXTENSIONS END
+
+
 //apply plugin: 'com.google.gms.google-services'
