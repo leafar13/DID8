@@ -223,8 +223,6 @@ OF WHETHER APPGATE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LIABILITY. -->
         
         <config-file parent="/manifest" target="AndroidManifest.xml">
 
-            <meta-data android:name="tools:replace" android:value="android:icon" />
-             <meta-data android:name="android:usesCleartextTraffic" android:value="true" />
 
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -368,6 +366,13 @@ OF WHETHER APPGATE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LIABILITY. -->
                     android:screenOrientation="portrait" android:theme="@android:style/Theme.Dialog"/>
 
         </config-file>
+
+        <edit-config file="AndroidManifest.xml" target="/manifest" mode="merge">
+                <application tools:replace="android:icon" android:usesCleartextTraffic="true" >
+        </edit-config>
+
+
+            
 
         <!-- DID Plugin API -->
         <source-file src="src/android/proguard-rules.pro"
