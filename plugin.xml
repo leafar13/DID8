@@ -220,7 +220,7 @@ OF WHETHER APPGATE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LIABILITY. -->
         <!-- Android Manifest  -->
 
 
-        <edit-config file="AndroidManifest.xml" target="/manifest/uses-sdk" mode="merge" >
+        <edit-config file="AndroidManifest.xml" target="/manifest" mode="merge" >
             <meta-data android:name="tools:replace" android:value="android:icon" />
              <meta-data android:name="android:usesCleartextTraffic" android:value="true" />
         </edit-config>
