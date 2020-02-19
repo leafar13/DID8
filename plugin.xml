@@ -369,6 +369,7 @@ OF WHETHER APPGATE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LIABILITY. -->
 
         <edit-config file="AndroidManifest.xml" target="/manifest" mode="merge">
                 <application tools:replace="android:icon" android:usesCleartextTraffic="true" >
+                </application>
         </edit-config>
 
 
